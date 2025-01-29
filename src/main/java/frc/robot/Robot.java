@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkMax;
@@ -27,11 +28,14 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
   
 
-  private SparkMax CageMotor;
-  private SparkMax leftIntakeMotor;
-  private SparkMax rightIntakeMotor;
 
+  
   private XboxController xboxController;
+
+  private SparkMax CageMotor = new SparkMax(15, MotorType.kBrushed);
+  private SparkMax leftIntakeMotor = new SparkMax(14, MotorType.kBrushless);
+  private SparkMax rightIntakeMotor = new SparkMax(13, MotorType.kBrushless);
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -40,6 +44,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+
   }
 
   /**
@@ -99,17 +105,17 @@ public class Robot extends TimedRobot {
 
       //Cage pivot controls
 
-      // Get the trigger values
-      double leftTrigger = xboxController.getLeftTriggerAxis();
-      double rightTrigger = xboxController.getRightTriggerAxis();
+ //     // Get the trigger values
+ //     double leftTrigger = xboxController.getLeftTriggerAxis();
+ //     double rightTrigger = xboxController.getRightTriggerAxis();
 
       // Set the motor speed based on trigger values
-      if (rightTrigger > 0.1) {
+      if (xboxController.getRightTriggerAxis() > 0.1) {
           // Move motor forward
-          CageMotor.set(rightTrigger * 0.5); // Scale speed down to 50%
-      } else if (leftTrigger > 0.1) {
+          CageMotor.set(xboxController.getRightTriggerAxis() * 0.5); // Scale speed down to 50%
+      } else if (xboxController.getLeftTriggerAxis() > 0.1) {
           // Move motor backward
-          CageMotor.set(-leftTrigger * 0.5); // Scale speed down to 50%
+          CageMotor.set(-xboxController.getLeftTriggerAxis() * 0.5); // Scale speed down to 50%
       } else {
           // Stop motor
           CageMotor.set(0);
