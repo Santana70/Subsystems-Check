@@ -29,8 +29,8 @@ public class Robot extends TimedRobot {
   
 
 
-  
-  private XboxController xboxController;
+
+  private XboxController Driver = new XboxController(0);
 
   private SparkMax CageMotor = new SparkMax(15, MotorType.kBrushed);
   private SparkMax leftIntakeMotor = new SparkMax(14, MotorType.kBrushless);
@@ -110,12 +110,12 @@ public class Robot extends TimedRobot {
  //     double rightTrigger = xboxController.getRightTriggerAxis();
 
       // Set the motor speed based on trigger values
-      if (xboxController.getRightTriggerAxis() > 0.1) {
+      if (Driver.getRightTriggerAxis() > 0.1) {
           // Move motor forward
-          CageMotor.set(xboxController.getRightTriggerAxis() * 0.5); // Scale speed down to 50%
-      } else if (xboxController.getLeftTriggerAxis() > 0.1) {
+          CageMotor.set(Driver.getRightTriggerAxis() * 0.5); // Scale speed down to 50%
+      } else if (Driver.getLeftTriggerAxis() > 0.1) {
           // Move motor backward
-          CageMotor.set(-xboxController.getLeftTriggerAxis() * 0.5); // Scale speed down to 50%
+          CageMotor.set(-Driver.getLeftTriggerAxis() * 0.5); // Scale speed down to 50%
       } else {
           // Stop motor
           CageMotor.set(0);
@@ -127,9 +127,9 @@ public class Robot extends TimedRobot {
 
 
        // Check if the left bumper is pressed
-       boolean leftBumperPressed = xboxController.getLeftBumperButtonPressed();
+       boolean leftBumperPressed = Driver.getLeftBumperButtonPressed();
        // Check if the right bumper is pressed
-       boolean rightBumperPressed = xboxController.getRightBumperButtonPressed();
+       boolean rightBumperPressed = Driver.getRightBumperButtonPressed();
 
        // Control the motors based on bumper inputs
        if (leftBumperPressed) {
