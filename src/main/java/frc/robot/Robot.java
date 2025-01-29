@@ -4,16 +4,13 @@
 
 package frc.robot;
 
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -126,7 +123,7 @@ public class Robot extends TimedRobot {
 
 
 
-       // Check if the left bumper is pressed
+       // Check if the left bumper is pressed 
        boolean leftBumperPressed = Driver.getLeftBumperButtonPressed();
        // Check if the right bumper is pressed
        boolean rightBumperPressed = Driver.getRightBumperButtonPressed();
