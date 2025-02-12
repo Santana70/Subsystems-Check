@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -14,6 +17,24 @@ package frc.robot;
  */
 public final class Constants {
   public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
+  public static final int kDriverControllerPort = 0;
+  public static final int Joint1MotorID = 17; // CAN ID for Joint 1 motor
+  public static final int Joint2MotorID = 16; // CAN ID for Joint 2 motor
+  public static final int cageMotorID = 13; // CAN ID for cage motor
+  public static final int intakeMotorID = 14; // CAN ID for intake motor
+  public static final int intakeMotorID2 = 15; // CAN ID for intake motor 2
+
+  } 
+  public static class PIDConstants {
+    public static final double Joint1P = 0.1;
+    public static final double Joint1I = 0.0;
+    public static final double Joint1D = 0.0;
+
+    public static final double Joint2P = 0.1;
+    public static final double Joint2I = 0.0;
+    public static final double Joint2D = 0.0;
+}
+
+
+
 }

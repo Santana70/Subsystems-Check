@@ -22,28 +22,27 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private final RobotContainer m_robotContainer;
-  
+private final RobotContainer m_robotContainer;
+private XboxController Driver;
 
 
+private SparkMax cageMotor;
+private SparkMax leftIntakeMotor;
+private SparkMax rightIntakeMotor;
 
-  private XboxController Driver = new XboxController(0);
-
-  private SparkMax CageMotor = new SparkMax(15, MotorType.kBrushed);
-  private SparkMax leftIntakeMotor = new SparkMax(14, MotorType.kBrushless);
-  private SparkMax rightIntakeMotor = new SparkMax(13, MotorType.kBrushless);
-
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
-  public Robot() {
+public Robot() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
+    Driver = new XboxController(0);
 
-  }
+    cageMotor = new SparkMax(Constants.OperatorConstants.cageMotorID, MotorType.kBrushless);
+    leftIntakeMotor = new SparkMax(Constants.OperatorConstants.intakeMotorID, MotorType.kBrushless);
+    rightIntakeMotor = new SparkMax(Constants.OperatorConstants.intakeMotorID2, MotorType.kBrushless);
+}
+  
+
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -109,13 +108,13 @@ public class Robot extends TimedRobot {
       // Set the motor speed based on trigger values
       if (Driver.getRightTriggerAxis() > 0.1) {
           // Move motor forward
-          CageMotor.set(Driver.getRightTriggerAxis() * 0.5); // Scale speed down to 50%
-      } else if (Driver.getLeftTriggerAxis() > 0.1) {
+          cageMotor.set(.5); // Scale speed down to 50%
+      } else if (Driver.getLeftTriggerAxis() > 0.05) {
           // Move motor backward
-          CageMotor.set(-Driver.getLeftTriggerAxis() * 0.5); // Scale speed down to 50%
+          cageMotor.set(-.8); // Scale speed down to 50%
       } else {
           // Stop motor
-          CageMotor.set(0);
+          cageMotor.set(0);
       }
 
 
@@ -124,20 +123,20 @@ public class Robot extends TimedRobot {
 
 
        // Check if the left bumper is pressed 
-       boolean leftBumperPressed = Driver.getLeftBumperButtonPressed();
+       //boolean leftBumperPressed = Driver.getLeftBumperButtonPressed();
        // Check if the right bumper is pressed
-       boolean rightBumperPressed = Driver.getRightBumperButtonPressed();
+       //boolean rightBumperPressed = Driver.getRightBumperButtonPressed();
 
        // Control the motors based on bumper inputs
-       if (leftBumperPressed) {
+       if (Driver.getLeftBumperButton()) {
            // Spin motors forward
-           leftIntakeMotor.set(50);  // 50% speed forward
-           rightIntakeMotor.set(50); // 50% speed forward
-       } else if (rightBumperPressed) {
+           leftIntakeMotor.set(.6);  // 80% speed forward
+           rightIntakeMotor.set(.6); // 80% speed forward
+       } else if (Driver.getRightBumperButton()) {
            // Spin motors backward
-           leftIntakeMotor.set(-50);  // 50% speed backward
-           rightIntakeMotor.set(-50); // 50% speed backward
-       } else {
+           leftIntakeMotor.set(-.6);  // 80% speed backward
+           rightIntakeMotor.set(-.6); // 80% speed backward
+       } else{
            // Stop motors
            leftIntakeMotor.set(0);
            rightIntakeMotor.set(0);
