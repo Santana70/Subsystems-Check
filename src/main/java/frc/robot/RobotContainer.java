@@ -3,8 +3,11 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SetJoint1AngleCommand;
 import frc.robot.subsystems.Joint1Subsystem;
+import frc.robot.commands.SetRestAngleCommand;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,7 +31,12 @@ public class RobotContainer {
 
   private void configureBindings() {
     // Assign button A (button 1) to set the joint to 90 degrees
-    m_driverController.a().whenPressed(new SetJoint1AngleCommand(joint1Subsystem, Rotation2d.fromDegrees(90)));
+    m_driverController.a().onTrue(new SetJoint1AngleCommand(joint1Subsystem, Rotation2d.fromDegrees(90)));
+    // Assign button B to set the rest angle to 0 degrees
+    m_driverController.b().onTrue(new SetRestAngleCommand(joint1Subsystem, 0.0));
+    // Assign button Y to set the rest angle to 13 degrees
+    m_driverController.y().onTrue(new SetRestAngleCommand(joint1Subsystem, 13.0));
+
   }
 
   public Joint1Subsystem getJoint1Subsystem() {

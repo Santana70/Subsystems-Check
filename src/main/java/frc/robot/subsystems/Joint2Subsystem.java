@@ -1,20 +1,21 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Joint2Subsystem extends SubsystemBase {
-    private final CANSparkMax motor;
-    private final CANEncoder encoder;
+    private final SparkMax motor;
+    private final RelativeEncoder encoder;
     private final PIDController pidController;
 
     public Joint2Subsystem() {
-        motor = new CANSparkMax(Constants.OperatorConstants.Joint2MotorID, MotorType.kBrushless);
+        motor = new SparkMax(Constants.OperatorConstants.Joint2MotorID, MotorType.kBrushless);
         pidController = new PIDController(Constants.PIDConstants.Joint2P, Constants.PIDConstants.Joint2I, Constants.PIDConstants.Joint2D);
         encoder = motor.getEncoder();
     }

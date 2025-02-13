@@ -1,10 +1,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.subsystems.Joint1Subsystem;
 
-public class SetJoint1AngleCommand extends CommandBase {
+public class SetJoint1AngleCommand extends Command {
     private final Joint1Subsystem joint1Subsystem;
     private final Rotation2d setpoint;
 
