@@ -4,6 +4,8 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SetJoint1AngleCommand;
 import frc.robot.subsystems.Joint1Subsystem;
 import frc.robot.commands.SetRestAngleCommand;
+import frc.robot.commands.ResetEncoderCommand;
+import frc.robot.commands.JogJoint1Command;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -36,6 +38,12 @@ public class RobotContainer {
     m_driverController.b().onTrue(new SetRestAngleCommand(joint1Subsystem, 0.0));
     // Assign button Y to set the rest angle to 13 degrees
     m_driverController.y().onTrue(new SetRestAngleCommand(joint1Subsystem, 13.0));
+    // Assign button X to reset the encoder
+    m_driverController.x().onTrue(new ResetEncoderCommand(joint1Subsystem));
+    // Assign POV 90 (right) to jog the joint by +5 degrees
+    m_driverController.povRight().onTrue(new JogJoint1Command(joint1Subsystem, 0.1));
+    // Assign POV 270 (left) to jog the joint by -5 degrees
+    m_driverController.povLeft().onTrue(new JogJoint1Command(joint1Subsystem, -0.1));
 
   }
 

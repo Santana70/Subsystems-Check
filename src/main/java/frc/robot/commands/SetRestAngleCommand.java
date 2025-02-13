@@ -12,6 +12,7 @@ public class SetRestAngleCommand extends Command{
         this.restAngle = restAngle;
         addRequirements(joint1Subsystem);
     }
+    
 
     @Override
     public void initialize() {

@@ -40,10 +40,28 @@ public class Joint1Subsystem extends SubsystemBase {
             output *= DESCENT_SPEED_MULTIPLIER;
         }
 
-        motor.set(output);
+        // Safety check to prevent moving beyond physical limits
+        if (targetAngle < 0 || targetAngle > 180) {
+            motor.set(0); // Stop the motor if the target angle is out of bounds
+            System.out.println("Target angle out of bounds: " + targetAngle);
+        } else {
+            motor.set(output);
+        }
     }
     public void setRestAngle(double restAngle) {
         this.restAngle = restAngle;
+    }
+
+    public void resetEncoder() {
+        encoder.setPosition(0);
+    }
+
+    public void jog(double speed) {
+        motor.set(speed);
+    }
+
+    public void stop() {
+        motor.set(0);
     }
 
     private double getCurrentAngle() {
