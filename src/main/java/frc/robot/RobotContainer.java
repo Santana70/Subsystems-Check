@@ -37,13 +37,13 @@ public class RobotContainer {
     // Assign button B to set the rest angle to 0 degrees
     m_driverController.b().onTrue(new SetRestAngleCommand(joint1Subsystem, 0.0));
     // Assign button Y to set the rest angle to 13 degrees
-    m_driverController.y().onTrue(new SetRestAngleCommand(joint1Subsystem, 13.0));
+    m_driverController.y().onTrue(new SetRestAngleCommand(joint1Subsystem, 30.0));
     // Assign button X to reset the encoder
     m_driverController.x().onTrue(new ResetEncoderCommand(joint1Subsystem));
     // Assign POV 90 (right) to jog the joint by +5 degrees
-    m_driverController.povRight().onTrue(new JogJoint1Command(joint1Subsystem, 0.1));
+    m_driverController.povRight().whileTrue(new JogJoint1Command(joint1Subsystem, 0.4));
     // Assign POV 270 (left) to jog the joint by -5 degrees
-    m_driverController.povLeft().onTrue(new JogJoint1Command(joint1Subsystem, -0.1));
+    m_driverController.povLeft().whileTrue(new JogJoint1Command(joint1Subsystem, -0.4));
 
   }
 

@@ -37,7 +37,7 @@ public Robot() {
 
     Driver = new XboxController(0);
 
-    cageMotor = new SparkMax(Constants.OperatorConstants.cageMotorID, MotorType.kBrushless);
+    cageMotor = new SparkMax(Constants.OperatorConstants.cageMotorID, MotorType.kBrushed);
     leftIntakeMotor = new SparkMax(Constants.OperatorConstants.intakeMotorID, MotorType.kBrushless);
     rightIntakeMotor = new SparkMax(Constants.OperatorConstants.intakeMotorID2, MotorType.kBrushless);
 }
@@ -108,10 +108,10 @@ public Robot() {
       // Set the motor speed based on trigger values
       if (Driver.getRightTriggerAxis() > 0.1) {
           // Move motor forward
-          cageMotor.set(.5); // Scale speed down to 50%
+          cageMotor.set(.2); // Scale speed down to 50%
       } else if (Driver.getLeftTriggerAxis() > 0.05) {
           // Move motor backward
-          cageMotor.set(-.8); // Scale speed down to 50%
+          cageMotor.set(-.2); // Scale speed down to 50%
       } else {
           // Stop motor
           cageMotor.set(0);
@@ -130,15 +130,15 @@ public Robot() {
        // Control the motors based on bumper inputs
        if (Driver.getLeftBumperButton()) {
            // Spin motors forward
-           leftIntakeMotor.set(.6);  // 80% speed forward
+         //  leftIntakeMotor.set(.6);  // 80% speed forward
            rightIntakeMotor.set(.6); // 80% speed forward
        } else if (Driver.getRightBumperButton()) {
            // Spin motors backward
-           leftIntakeMotor.set(-.6);  // 80% speed backward
+         //  leftIntakeMotor.set(-.6);  // 80% speed backward
            rightIntakeMotor.set(-.6); // 80% speed backward
        } else{
            // Stop motors
-           leftIntakeMotor.set(0);
+          // leftIntakeMotor.set(0);
            rightIntakeMotor.set(0);
        }
 

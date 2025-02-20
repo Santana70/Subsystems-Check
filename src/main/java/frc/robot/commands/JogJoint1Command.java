@@ -27,7 +27,5 @@ public class JogJoint1Command extends Command{
     @Override
     public boolean isFinished() {
         return false; // Command continues until the button is released
-    }
-
-
+    } 
 }

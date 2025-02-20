@@ -18,7 +18,7 @@ public class Joint1Subsystem extends SubsystemBase {
     private static final double RISE_SPEED_MULTIPLIER = 0.6; // Multiplier for rising speed
     private static final double DESCENT_SPEED_MULTIPLIER = 0.1; // Multiplier for descent speed
 
-    private double restAngle = 13.0; // Default rest position of the arm in degrees
+    private double restAngle = 30.0; // Default rest position of the arm in degrees
 
 
     public Joint1Subsystem() {

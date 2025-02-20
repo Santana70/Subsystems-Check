@@ -18,15 +18,15 @@ import com.revrobotics.spark.SparkMax;
 public final class Constants {
   public static class OperatorConstants {
   public static final int kDriverControllerPort = 0;
-  public static final int Joint1MotorID = 17; // CAN ID for Joint 1 motor
+  public static final int Joint1MotorID = 17; // CAN ID for Joint 1 motor   this one
   public static final int Joint2MotorID = 16; // CAN ID for Joint 2 motor
-  public static final int cageMotorID = 13; // CAN ID for cage motor
-  public static final int intakeMotorID = 14; // CAN ID for intake motor
-  public static final int intakeMotorID2 = 15; // CAN ID for intake motor 2
+  public static final int cageMotorID = 13; // CAN ID for cage motor   bottom
+  public static final int intakeMotorID = 14; // CAN ID for intake motor later
+  public static final int intakeMotorID2 = 15; // CAN ID for intake motor 2   blah end
 
   } 
   public static class PIDConstants {
-    public static final double Joint1P = 0.1;
+    public static final double Joint1P = 0.01;
     public static final double Joint1I = 0.0;
     public static final double Joint1D = 0.0;
 
