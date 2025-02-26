@@ -23,6 +23,8 @@ public final class Constants {
   public static final int cageMotorID = 13; // CAN ID for cage motor   bottom
   public static final int intakeMotorID = 14; // CAN ID for intake motor later
   public static final int intakeMotorID2 = 15; // CAN ID for intake motor 2   blah end
+  public static final int rollerMotorID = 18; // CAN ID for intake motor later
+  public static final int rollerMotorID2 = 19; // CAN ID for intake motor 2   blah end
 
   } 
   public static class PIDConstants {
@@ -34,7 +36,12 @@ public final class Constants {
     public static final double Joint2I = 0.0;
     public static final double Joint2D = 0.0;
 }
-
+public static class FeedforwardConstants {
+  public static final double kS = 0.2; // Static gain
+  public static final double kG = 1.0; // Gravity gain
+  public static final double kV = 0.1; // Velocity gain
+  public static final double kA = 0.01; // Acceleration gain
+}
 
 
 }

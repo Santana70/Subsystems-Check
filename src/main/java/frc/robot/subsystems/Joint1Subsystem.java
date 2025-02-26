@@ -7,11 +7,13 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.math.controller.ArmFeedforward;
 
 public class Joint1Subsystem extends SubsystemBase {
     private final SparkMax motor;
     private final RelativeEncoder encoder;
-    private final PIDController pidController;
+    // private final PIDController pidController;
+    private final ArmFeedforward feedforward; 
     private static final double GEAR_RATIO = 16.0; // 16:1 gearbox
     private static final double SPOOL_DIAMETER = 0.05; // Spool diameter in meters (example value)
     private static final double ARM_LENGTH = 0.127; // Length of the arm from pivot to string attachment point in meters (example value)
@@ -24,20 +26,24 @@ public class Joint1Subsystem extends SubsystemBase {
     public Joint1Subsystem() {
         motor = new SparkMax(Constants.OperatorConstants.Joint1MotorID, MotorType.kBrushless);
         encoder = motor.getEncoder();
-        pidController = new PIDController(Constants.PIDConstants.Joint1P, Constants.PIDConstants.Joint1I, Constants.PIDConstants.Joint1D);
+        //pidController = new PIDController(Constants.PIDConstants.Joint1P, Constants.PIDConstants.Joint1I, Constants.PIDConstants.Joint1D);
+        feedforward = new ArmFeedforward(Constants.FeedforwardConstants.kS, Constants.FeedforwardConstants.kG, Constants.FeedforwardConstants.kV, Constants.FeedforwardConstants.kA);
+
     }
 
     public void setSetpoint(Rotation2d setpoint) {
         double targetAngle = setpoint.getDegrees();
         double currentAngle = getCurrentAngle();
-        double output = pidController.calculate(getCurrentAngle(), targetAngle);
-        // Adjust the speed based on the direction of movement
+      //  double output = pidController.calculate(getCurrentAngle(), targetAngle);
+      double feedforwardOutput = feedforward.calculate(Math.toRadians(targetAngle), 0, 0); // Assuming no velocity or acceleration        
+      
+      // Adjust the speed based on the direction of movement
         if (targetAngle > currentAngle) {
             // Rising
-            output *= RISE_SPEED_MULTIPLIER;
+            feedforwardOutput *= RISE_SPEED_MULTIPLIER;
         } else {
             // Descending
-            output *= DESCENT_SPEED_MULTIPLIER;
+            feedforwardOutput *= DESCENT_SPEED_MULTIPLIER;
         }
 
         // Safety check to prevent moving beyond physical limits
@@ -45,7 +51,7 @@ public class Joint1Subsystem extends SubsystemBase {
             motor.set(0); // Stop the motor if the target angle is out of bounds
             System.out.println("Target angle out of bounds: " + targetAngle);
         } else {
-            motor.set(output);
+            motor.setVoltage(feedforwardOutput);
         }
     }
     public void setRestAngle(double restAngle) {
