@@ -157,21 +157,16 @@ public Robot() {
            rightIntakeMotor.set(0);
        }
 
-       if(Driver.getPOV() == 180){
-        
-        rightRollerMotor.set(.2);
-        leftRollerMotor.set(-.6);
-
-       }else if(Driver.getPOV() == 0){
-        
-        rightRollerMotor.set(-.2);
-        leftRollerMotor.set(.6);
-       }else{
-        rightRollerMotor.set(0);
-        leftRollerMotor.set(0);
-       }
 
 
+
+    if(Driver.getPOV() == 180){
+      Armsolenoid.set(Value.kForward);  
+    } else if (Driver.getPOV() == 0){  //pneumatics go up
+      Armsolenoid.set(Value.kReverse);
+    } else if (Driver.getRightStickButton()){  //pneumatics go up
+      Armsolenoid.set(Value.kOff);
+    } 
 
        
  
