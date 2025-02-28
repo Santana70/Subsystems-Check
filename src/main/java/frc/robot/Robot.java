@@ -160,12 +160,12 @@ public Robot() {
        if(Driver.getPOV() == 180){
         
         rightRollerMotor.set(.2);
-        leftRollerMotor.set(-.2);
+        leftRollerMotor.set(-.6);
 
        }else if(Driver.getPOV() == 0){
         
         rightRollerMotor.set(-.2);
-        leftRollerMotor.set(.2);
+        leftRollerMotor.set(.6);
        }else{
         rightRollerMotor.set(0);
         leftRollerMotor.set(0);
