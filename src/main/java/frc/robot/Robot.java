@@ -5,6 +5,9 @@
 package frc.robot;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import javax.xml.stream.events.EndDocument;
+
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -28,33 +31,38 @@ public class Robot extends TimedRobot {
 
 private final RobotContainer m_robotContainer;
 private XboxController Driver;
-
+private XboxController Operater;
 
 private SparkMax cageMotor;
 private SparkMax leftIntakeMotor;
-private SparkMax rightIntakeMotor;
-private SparkMax leftRollerMotor;
-private SparkMax rightRollerMotor;
+private SparkMax telescopicMotor;
+private SparkMax ballMotor;
 
 
-private final DoubleSolenoid Armsolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 7, 8);
-private boolean solenoidOpen = false;
+private final DoubleSolenoid Endsolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 7, 8);
+private final DoubleSolenoid clawsolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 6,9);
+private final DoubleSolenoid Ballsolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 5, 10);
+private final DoubleSolenoid Armsolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 11, 4);
+
+private boolean BallOut = false;
+private boolean Processor = false;
+private boolean ground = false;
+private boolean End = false;
 
 public Robot() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    Driver = new XboxController(0);
-
+    Driver = new XboxController(Constants.OperatorConstants.kDriverControllerPort);
+    Operater = new XboxController(Constants.OperatorConstants.kOperatorControllerPort);
 
 
 
     cageMotor = new SparkMax(Constants.OperatorConstants.cageMotorID, MotorType.kBrushless);
-    leftIntakeMotor = new SparkMax(Constants.OperatorConstants.intakeMotorID, MotorType.kBrushless);
-    rightIntakeMotor = new SparkMax(Constants.OperatorConstants.intakeMotorID2, MotorType.kBrushless);
-    leftRollerMotor = new SparkMax(Constants.OperatorConstants.rollerMotorID, MotorType.kBrushless);
-    rightRollerMotor = new SparkMax(Constants.OperatorConstants.rollerMotorID2, MotorType.kBrushless);
+    telescopicMotor = new SparkMax(Constants.OperatorConstants.intakeMotorID2, MotorType.kBrushless);
+    ballMotor = new SparkMax(Constants.OperatorConstants.ballintakeID, MotorType.kBrushless);
+
 }
   
 
@@ -112,13 +120,20 @@ public Robot() {
   @Override
   public void teleopPeriodic(){
 
-  
 
-      //Cage pivot controls
+          // Set the motor speed based on trigger values
+          if (Operater.getRightTriggerAxis() > 0.1) {
+            // Move motor forward
+            ballMotor.set(-.4); // Scale speed down to 50%
+        } else if (Operater.getLeftTriggerAxis() > 0.05) {
+            // Move motor backward
+            ballMotor.set(.4); // Scale speed down to 50%
+        } else {
+            // Stop motor
+            ballMotor.set(0);
+        }
 
- //     // Get the trigger values
- //     double leftTrigger = xboxController.getLeftTriggerAxis();
- //     double rightTrigger = xboxController.getRightTriggerAxis();
+      // Wrist motor control
 
       // Set the motor speed based on trigger values
       if (Driver.getRightTriggerAxis() > 0.1) {
@@ -133,43 +148,76 @@ public Robot() {
       }
 
 
-      // Intake cage controls
-
-
-
-       // Check if the left bumper is pressed 
-       //boolean leftBumperPressed = Driver.getLeftBumperButtonPressed();
-       // Check if the right bumper is pressed
-       //boolean rightBumperPressed = Driver.getRightBumperButtonPressed();
+      // Telescopic arm controls
 
        // Control the motors based on bumper inputs
        if (Driver.getLeftBumperButton()) {
            // Spin motors forward
-         //  leftIntakeMotor.set(.6);  // 80% speed forward
-           rightIntakeMotor.set(.8); // 80% speed forward
+           telescopicMotor.set(.8); // 80% speed forward
        } else if (Driver.getRightBumperButton()) {
            // Spin motors backward
-         //  leftIntakeMotor.set(-.6);  // 80% speed backward
-           rightIntakeMotor.set(-.8); // 80% speed backward
+           telescopicMotor.set(-.8); // 80% speed backward
        } else{
            // Stop motors
-          // leftIntakeMotor.set(0);
-           rightIntakeMotor.set(0);
+           telescopicMotor.set(0);
        }
 
 
+    //on and off for hang cylinder
 
 
-    if(Driver.getPOV() == 180){
-      Armsolenoid.set(Value.kForward);  
-    } else if (Driver.getPOV() == 0){  //pneumatics go up
-      Armsolenoid.set(Value.kReverse);
-    } else if (Driver.getRightStickButton()){  //pneumatics go up
-      Armsolenoid.set(Value.kOff);
-    } 
 
-       
- 
+    if(Operater.getRightBumperButtonPressed()){
+
+      End = !End;
+  }  
+  if (End){
+    
+    Endsolenoid.set(Value.kForward);
+   
+} else {
+    Endsolenoid.set(Value.kReverse);
+}
+    
+  
+    
+    if(Operater.getYButtonPressed()){
+
+      BallOut = !BallOut;
+  }  
+  if (BallOut){
+    
+    clawsolenoid.set(Value.kForward);
+   
+} else {
+    clawsolenoid.set(Value.kReverse);
+}
+
+    
+
+  if(Operater.getXButtonPressed()){
+
+      Processor = !Processor;
+  }  
+  if (Processor){
+    
+    Ballsolenoid.set(Value.kForward);
+   
+} else {
+    Ballsolenoid.set(Value.kReverse);
+}
+
+if(Operater.getBButtonPressed()){
+
+  ground = !ground;
+}  
+if (ground){
+
+Armsolenoid.set(Value.kForward);
+
+} else {
+Armsolenoid.set(Value.kReverse);
+}
 
 
 

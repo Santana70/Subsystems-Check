@@ -18,13 +18,13 @@ import com.revrobotics.spark.SparkMax;
 public final class Constants {
   public static class OperatorConstants {
   public static final int kDriverControllerPort = 0;
-  public static final int Joint1MotorID = 17; // CAN ID for Joint 1 motor   this one
-  public static final int Joint2MotorID = 16; // CAN ID for Joint 2 motor
-  public static final int cageMotorID = 13; // CAN ID for cage motor   bottom
-  public static final int intakeMotorID = 14; // CAN ID for intake motor later
-  public static final int intakeMotorID2 = 15; // CAN ID for intake motor 2   blah end
-  public static final int rollerMotorID = 18; // CAN ID for intake motor later
-  public static final int rollerMotorID2 = 19; // CAN ID for intake motor 2   blah end
+  public static final int kOperatorControllerPort = 1;
+
+  public static final int Joint1MotorID = 16; // CAN ID for Joint 1 motor   this one
+  public static final int Joint2MotorID = 24; 
+  public static final int cageMotorID = 13; // CAN ID for cage motor   
+  public static final int intakeMotorID2 = 15; // CAN ID for intake motor 2   
+  public static final int ballintakeID = 17;
 
   } 
   public static class PIDConstants {
@@ -38,9 +38,9 @@ public final class Constants {
 }
 public static class FeedforwardConstants {
   public static final double kS = 0.2; // Static gain
-  public static final double kG = 1.0; // Gravity gain
-  public static final double kV = 0.1; // Velocity gain
-  public static final double kA = 0.01; // Acceleration gain
+  public static final double kG = 10.54; // Gravity gain
+  public static final double kV = 0.31; // Velocity gain
+  public static final double kA = 0.93; // Acceleration gain
 }
 
 
