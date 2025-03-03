@@ -6,7 +6,7 @@ package frc.robot;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import javax.xml.stream.events.EndDocument;
+
 
 import com.revrobotics.spark.SparkMax;
 
@@ -124,10 +124,10 @@ public Robot() {
           // Set the motor speed based on trigger values
           if (Operater.getRightTriggerAxis() > 0.1) {
             // Move motor forward
-            ballMotor.set(-.4); // Scale speed down to 50%
+            ballMotor.set(-.6); // Scale speed down to 50%
         } else if (Operater.getLeftTriggerAxis() > 0.05) {
             // Move motor backward
-            ballMotor.set(.4); // Scale speed down to 50%
+            ballMotor.set(.6); // Scale speed down to 50%
         } else {
             // Stop motor
             ballMotor.set(0);

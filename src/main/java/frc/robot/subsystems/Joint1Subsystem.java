@@ -16,7 +16,7 @@ public class Joint1Subsystem extends SubsystemBase {
     private final RelativeEncoder encoder;
     private final PIDController pidController;
     private final ArmFeedforward feedforward; 
-    private static final double GEAR_RATIO = 4.0; // 16:1 gearbox
+    private static final double GEAR_RATIO = 64.0; // 16:1 gearbox
     private static final double SPOOL_DIAMETER = 0.05; // Spool diameter in meters 
     private static final double ARM_LENGTH = 0.127; // Length of the arm from pivot to string attachment point in meters
     private static final double RISE_SPEED_MULTIPLIER = 0.3; // Multiplier for rising speed

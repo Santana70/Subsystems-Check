@@ -20,11 +20,11 @@ public final class Constants {
   public static final int kDriverControllerPort = 0;
   public static final int kOperatorControllerPort = 1;
 
-  public static final int Joint1MotorID = 16; // CAN ID for Joint 1 motor   this one
+  public static final int Joint1MotorID = 14; // CAN ID for Joint 1 motor   this one
   public static final int Joint2MotorID = 24; 
   public static final int cageMotorID = 13; // CAN ID for cage motor   
   public static final int intakeMotorID2 = 15; // CAN ID for intake motor 2   
-  public static final int ballintakeID = 17;
+  public static final int ballintakeID = 16;
 
   } 
   public static class PIDConstants {

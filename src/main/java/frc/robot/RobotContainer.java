@@ -42,9 +42,9 @@ public class RobotContainer {
     // Assign button X to reset the encoder
     m_driverController.x().onTrue(new ResetEncoderCommand(joint1Subsystem));
     // Assign POV 90 (right) to jog the joint by +5 degrees
-    m_driverController.povRight().whileTrue(new JogJoint1Command(joint1Subsystem, 0.4));
+    m_driverController.povRight().whileTrue(new JogJoint1Command(joint1Subsystem, 0.95));
     // Assign POV 270 (left) to jog the joint by -5 degrees
-    m_driverController.povLeft().whileTrue(new JogJoint1Command(joint1Subsystem, -0.4));
+    m_driverController.povLeft().whileTrue(new JogJoint1Command(joint1Subsystem, -0.95));
 
   }
 
